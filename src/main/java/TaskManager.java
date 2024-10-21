@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import java.io.File;
 
 public class TaskManager {
@@ -14,7 +17,7 @@ public class TaskManager {
         try {
             tasks = getTasksFromFile();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            tasks = new ArrayList<>();
         }
     }
 
@@ -80,11 +83,14 @@ public class TaskManager {
     }
 
     public static void updateFile() throws IOException {
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.writeValue(new File("tasks.json"), tasks);
     }
 
     public static List<Task> getTasksFromFile() throws IOException {
-        List<Task> tasks = null;
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
         tasks = objectMapper.readValue(new File("tasks.json"), objectMapper.getTypeFactory().constructCollectionType(List.class, Task.class));
 

@@ -1,9 +1,12 @@
 import com.fasterxml.jackson.annotation.*;
 
+import java.time.LocalDate;
+
 public class Task {
 
     private String name;
     private boolean status;
+    private LocalDate dueDate;
 
 
     @JsonCreator
@@ -15,6 +18,7 @@ public class Task {
     public Task(String name){
         this.name = name;
         this.status = false;
+        this.dueDate = null;
     }
 
     public String getName(){
@@ -25,9 +29,15 @@ public class Task {
         return this.status;
     }
 
+    public LocalDate getDueDate() {
+        return this.dueDate;
+    }
+
     public void setStatus(boolean newStatus){
         this.status = newStatus;
     }
+
+    public void setDueDate(LocalDate newDueDate){ this.dueDate = newDueDate; }
 
     public String toString(){
         return name;

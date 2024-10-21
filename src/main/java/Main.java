@@ -6,6 +6,7 @@ public class Main {
     static boolean quit = false;
     static Scanner scanner;
     static String taskName;
+    static String dueDate;
 
 
     private static String menu(){
@@ -45,7 +46,9 @@ public class Main {
                 case 2:
                     System.out.print("Task name: ");
                     taskName = getInputFromUser();
-                    TaskManager.addTask(new Task(taskName));
+                    System.out.print("Due date: ");
+                    dueDate = scanner.nextLine();
+                    TaskManager.addTask(new Task(taskName, dueDate));
                     break;
                 case 3:
                     System.out.print("Task name: ");

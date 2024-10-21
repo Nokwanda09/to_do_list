@@ -10,7 +10,6 @@ import java.io.File;
 
 public class TaskManager {
     private static ObjectMapper objectMapper = new ObjectMapper();
-//    public static List<Task> tasks = new ArrayList<>();
     public static List<Task> tasks;
 
     static {
@@ -60,7 +59,8 @@ public class TaskManager {
             if (!task.getStatus()) status = "Not done";
             else status = "Done";
 
-            System.out.println("| " + index + " | "+ task + " | "+ status+" |");
+            if (task.getDueDate()==null) System.out.println("| " + index + " | "+ task + " | "+ status+" | No due date |");
+            else System.out.println("| " + index + " | "+ task + " | "+ status+" | "+task.getDueDate()+" |");
             index +=1;
         }
 

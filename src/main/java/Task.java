@@ -18,15 +18,21 @@ public class Task {
     public Task(String name){
         if (name.isEmpty()) throw new IllegalArgumentException("Name cannot be empty");
         else this.name = name;
-        
+
         this.status = false;
         this.dueDate = null;
     }
 
-    public Task(String name, LocalDate dueDate){
+    public Task(String name, String dueDate){
         this (name);
         this.status = false;
-        this.dueDate = dueDate;
+
+        if (dueDate.isEmpty()) dueDate = null;
+        else {
+            String[] date = dueDate.split("/");
+            this.dueDate = LocalDate.of(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+        }
+
     }
 
     public String getName(){

@@ -16,9 +16,17 @@ public class Task {
     }
 
     public Task(String name){
-        this.name = name;
+        if (name.isEmpty()) throw new IllegalArgumentException("Name cannot be empty");
+        else this.name = name;
+        
         this.status = false;
         this.dueDate = null;
+    }
+
+    public Task(String name, LocalDate dueDate){
+        this (name);
+        this.status = false;
+        this.dueDate = dueDate;
     }
 
     public String getName(){
